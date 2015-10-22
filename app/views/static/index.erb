@@ -2,4 +2,12 @@
  	Enter URL:
  	<input type="text" name="long_url">
  	<input type="submit" value="Submit">
- 	</form> 
+ </form> 
+
+ <% @urls.each do |url| %>
+	<a href="http://localhost:9393/<%= url.short_url %>">
+	 	<p><%= url.short_url %> <span>| count: <%= url.click_count %></span></p>
+ 	</a>
+ 	<p><%= url.long_url %></p>
+ 	<br />
+ <% end %>
