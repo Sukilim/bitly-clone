@@ -1,6 +1,6 @@
 get '/' do
 	@urls = Url.all.order("click_count DESC")
-  erb :"static/index"
+  	erb :"static/index", :layout => :"static/layout"
 end
 
 post '/urls' do
@@ -8,10 +8,10 @@ post '/urls' do
 	if search_long_url.nil?
 		url = Url.new(long_url: params[:long_url])
 			if url.save
-			redirect to '/'
-		else
-			erb :"static/error"
-		end
+				redirect to '/'
+			else
+					erb :"static/error"
+			end
 	else
 		redirect to '/'
 	end
