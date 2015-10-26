@@ -12,3 +12,4 @@ class Url < ActiveRecord::Base
 		self.short_url = short_rand
 	end 
 end
+
