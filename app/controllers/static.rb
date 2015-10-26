@@ -1,17 +1,17 @@
 get '/' do
 	@urls = Url.all.order("click_count DESC")
-  	erb :"static/index", :layout => :"static/layout"
+  erb :"static/index", :layout => :"static/layout"
 end
 
 post '/urls' do
 	search_long_url = Url.find_by(long_url: params[:long_url])
 	if search_long_url.nil?
-		url = Url.new(long_url: params[:long_url])
-			if url.save
-				redirect to '/'
-			else
-					erb :"static/error"
-			end
+		url = Url.new(long_url: params[:long_url], name: params[:name])
+		if url.save
+			redirect to '/'
+		else
+				erb :"static/error"
+		end
 	else
 		redirect to '/'
 	end
@@ -20,8 +20,16 @@ end
 get '/:short_url' do
 	@url = Url.find_by(short_url: params[:short_url])
 	@url.click_count += 1
+	# byebug
 	@url.save
 	redirect to @url.long_url
+end
+
+get '/delete/:id' do
+	url = Url.find(params[:id])
+	url.delete
+	url.save
+	redirect to '/'
 end
 
 # get '/new_page' do

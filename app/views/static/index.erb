@@ -1,20 +1,56 @@
- <form id="search_form" action="/urls" method="post">
+
+<form id="search_form" action="/urls" method="post">
  	Enter URL:
  	<input type="text" name="long_url">
  	<input type="submit" value="Submit">
- </form> 
- <hr>
+ 	Enter Name:
+ 	<input type="text" name="name">
+ 	<input type="submit" value="Enter">
+ 	<script>
+		$(document).ready(function(){
+    $("input").focus(function(){
+        $(this).css("background-color", "#cccccc");
+    });
+     $("input").blur(function(){
+     		$(this).css("background-color", "#ffffff");
+    });
+		});
+	</script>
+</form> 
+<hr>
 
 <table>
-<tr>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        $("table").fadeToggle();
+    });
+});
+</script>
+<button>Hide table</button>
+<tr>	
+			<th>Name of Link</th>
 			<th>Short links</th>
 			<th>Long links</th>
+			<th>Count of Visit</th>
+			<th>Remove</th>
 </tr>
-<tr>
  <tr><% @urls.each do |url| %></tr>
-	<td><a href="https://www.youtube.com/watch?v=JwzxH-VzQSs">
+	<td><p><%= url.name %></p></td>
+	<td><a href="http://localhost:9393/<%= url.short_url%>">
 	 	<p><%= url.short_url %> <span>| count: <%= url.click_count %></span></p></a></td>
  	<td><p><%= url.long_url %></p></td>
+ 	<td><p><%= url.click_count %></p></td>
+ 	<td><form id="delete_button" action="/delete/<%= url.id %>" method="get"><input type = "submit" value = "Delete"></input></form>
+	</td>
+
+<script>
+$(document).ready(function(){
+    $("delete_button").click(function(){
+        $(direct parent).remove();
+    });
+});
+</script>
  <% end %>
 </tr>
 </table>

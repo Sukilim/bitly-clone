@@ -4,12 +4,24 @@
 	<head> 
 		<title> Bitly </title>
 		<link rel="stylesheet" type="text/css" href="css/application.css" media="screen" />
-	</head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		</head>
 	
 	<body style>
 		<img id="baby_image" src="img/foxes-0a.jpg" alt="HTML5 Icon">
 
 		<h1> Bitly </b></h1>
+	<script>
+		$(document).ready(function() {
+		$("img").attr({
+     "title" : "Click to kill the fox"
+    });
+		$("img").mousedown(function(){
+    alert("You killed the Fox!");
+		$("img").hide();
+		});
+		});
+	</script>
 
 	<%=yield%>
 
